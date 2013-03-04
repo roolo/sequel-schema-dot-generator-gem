@@ -1,18 +1,18 @@
 digraph G {
   node [shape=none,fontname="DejaVu Sans"];
-  <% tables.each do |table_name, table| %>
+  <% tables.each do |table_name, table_schema| %>
     <%= table_name %> [label=<
       <table border="0" cellborder="1" cellspacing="0" cellpadding="4">
         <tr><td bgcolor="lightgrey" PORT="users"><b><%= table_name %></b></td></tr>
-        <% table.columns.each do |column_name| %>
-        <tr><td PORT="<%= column_name %>"><%= column_name %></td></tr>
+        <% table_schema.each do |column_name, column_schema| %>
+        <tr><td PORT="<%= column_name %>"><%= column_name %><font color="gray">(<%= column_schema[:type] %>)</font></td></tr>
         <% end %>
       </table>
     >]
   <% end %>
 
-  <% relations.each do |from_tab, from_col, to_tab, to_col| %>
-    <%= '"%s":"%s" -> "%s":"%s"'%[from_tab, from_col, to_tab, to_col] %>
+  <% relations.each_with_index do |(from_tab, from_col, to_tab, to_col), index| %>
+    <%= '"%s":"%s" -> "%s":"%s" [color="#%s"];'%[from_tab, from_col, to_tab, to_col, edge_colors[index]] %>
 
   <% end %>
 }

@@ -36,3 +36,10 @@ Or install it yourself as:
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Changelog
+
+### 0.0.2
+- optional colored association edges to distinguish them in big intersections (`params[:colored_associations]`)
+- multiple foreign table support
+- columns has written types in diagram
