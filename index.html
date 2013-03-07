@@ -48,13 +48,15 @@
 
       <h2>Usage</h2>
 
-      <pre><code>require 'sequel/schema/dot/generator'
-        dot_db = Sequel::Schema::Dot::Generator::Generator
-        .new({  db:     DB
-        }
-        )
+      <pre><code>
+require 'sequel/schema/dot/generator'
 
-        puts dot_db.generate
+dot_db = Sequel::Schema::Dot::Generator::Generator
+  .new({  db:     DB
+       }
+  )
+
+puts dot_db.generate
       </code></pre>
 
       <h2>Contributing</h2>
