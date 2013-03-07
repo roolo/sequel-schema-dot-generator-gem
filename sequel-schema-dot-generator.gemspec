@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = %w(development@rooland.cz)
   spec.description   = %q{This gem makes it easier to generate database schema overview image}
   spec.summary       = %q{Dot language format generator for Sequel schema structure}
-  spec.homepage      = 'https://github.com/roolo/sequel-schema-dot-generator-gem'
+  spec.homepage      = 'http://www.rooland.cz/sequel-schema-dot-generator-gem'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
