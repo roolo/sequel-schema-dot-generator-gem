@@ -1,4 +1,6 @@
 require 'sequel/schema/dot/generator/version'
+require 'sequel/schema/dot/generator/schema_source_types/base'
+require 'sequel/schema/dot/generator/schema_source_types/column'
 require 'erb'
 require 'logger'
 require 'sequel'
@@ -22,6 +24,7 @@ module Sequel
           #   :logger               [Logger]            optional Will be used for logging
           #   :dot_template_path    [String]            optional Template is supposed to be ERB template. Will be used as template for resulting Dot file
           #   :colored_associations [Boolean]           optional Whether lines representing associations will be draw in color (=False)
+          #   :schema_source_type   [Symbol]            optional How will be data acquired (:column)
           #
           def initialize params
             check_params params
@@ -30,25 +33,26 @@ module Sequel
             @logger = params[:logger] || Logger.new(STDERR)
             @dot_template_path    = params[:dot_template_path] || File.join(File.dirname(__FILE__), 'generator/diagram.dot.erb')
             @colored_associations = params[:colored_associations]
+            initialize_ss params[:schema_source_type]
+          end
+
+          def initialize_ss type
+            sst_params = @db, @db.tables
+
+            # Column Source as fallback
+            @schema_source ||= SchemaSourceType::Column.new *sst_params
           end
 
           # @return [String] Content which can be passed to dot parsing tool
           def generate
-            relations = []
             tables    = []
 
             @db.tables.each do |table_name|
               next if table_name == :schema_info
               tables << [table_name, @db.schema(table_name)]
-
-              # foreign keys by <table>_id name format
-              # @todo Read it from model
-              @db[table_name].columns.select{|cn|cn=~/_id$/}.each do |column_name|
-                foreign_column = column_name.to_s
-                foreign_table = existing_table_name foreign_column.gsub(/_id$/, '')
-                relations << [foreign_table, 'id', table_name, foreign_column]
-              end
             end
+
+            relations = @schema_source.relations
 
             if @colored_associations
               edge_colors = random_color_set relations.count
@@ -60,19 +64,6 @@ module Sequel
           end
 
           private
-
-          # @param  [String] name
-          #
-          # @return [String] form of name param in which it is name of existing table
-          def existing_table_name name
-            tables = @db.tables.map(&:to_s)
-            table_name = name if tables.include? name
-            table_name ||= name.pluralize if tables.include? name.pluralize
-            table_name ||= name.singularize if tables.include? name.singularize
-            table_name ||= 'association_table_not_found'
-
-            table_name
-          end
 
           # @param  [Integer] number of colors we want to generate
           #
