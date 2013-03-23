@@ -1,6 +1,7 @@
 require 'sequel/schema/dot/generator/version'
 require 'sequel/schema/dot/generator/schema_source_types/base'
 require 'sequel/schema/dot/generator/schema_source_types/column'
+require 'sequel/schema/dot/generator/schema_source_types/model'
 require 'erb'
 require 'logger'
 require 'sequel'
@@ -24,7 +25,7 @@ module Sequel
           #   :logger               [Logger]            optional Will be used for logging
           #   :dot_template_path    [String]            optional Template is supposed to be ERB template. Will be used as template for resulting Dot file
           #   :colored_associations [Boolean]           optional Whether lines representing associations will be draw in color (=False)
-          #   :schema_source_type   [Symbol]            optional How will be data acquired (:column)
+          #   :schema_source_type   [Symbol]            optional How will be data acquired (:column|:model)
           #
           def initialize params
             check_params params
@@ -38,6 +39,10 @@ module Sequel
 
           def initialize_ss type
             sst_params = @db, @db.tables
+
+            if type == :model
+              @schema_source = SchemaSourceType::Model.new *sst_params
+            end
 
             # Column Source as fallback
             @schema_source ||= SchemaSourceType::Column.new *sst_params
