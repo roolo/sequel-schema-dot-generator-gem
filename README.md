@@ -27,8 +27,6 @@ Or install it yourself as:
 
     puts dot_db.generate
 
-    =>
-
 ## Contributing
 
 1. Fork it
@@ -38,6 +36,10 @@ Or install it yourself as:
 5. Create new Pull Request
 
 ## Changelog
+
+### 0.0.3
+- Associations detection from model (`params[:schema_source_type] = :model`)
+- New homepage
 
 ### 0.0.2
 - optional colored association edges to distinguish them in big intersections (`params[:colored_associations]`)
