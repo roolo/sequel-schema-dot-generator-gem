@@ -2,6 +2,8 @@
 
 Sequel database structure Dot language generator
 
+[![Gem Version](https://badge.fury.io/rb/sequel-schema-dot-generator.png)](http://badge.fury.io/rb/sequel-schema-dot-generator)
+
 ## Installation
 
 Add this line to your application's Gemfile:
