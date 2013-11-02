@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require File.expand_path 'lib/sequel/schema/dot/generator/version'
+require File.expand_path 'lib/sequel_schema_dot_generator/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'sequel-schema-dot-generator'
-  spec.version       = Sequel::Schema::Dot::Generator::VERSION
+  spec.version       = SequelSchemaDotGenerator::VERSION
   spec.authors       = ['Mailo Svetel']
   spec.email         = %w(development@rooland.cz)
   spec.description   = %q{This gem makes it easier to generate database schema overview image}
