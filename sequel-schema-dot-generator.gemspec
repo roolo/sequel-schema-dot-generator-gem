@@ -1,7 +1,7 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require File.expand_path 'lib/sequel/schema/dot/generator'
+require File.expand_path 'lib/sequel/schema/dot/generator/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'sequel-schema-dot-generator'
@@ -22,5 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake'
 
   spec.add_dependency 'sequel'
-  spec.add_dependency 'active_support'
+  spec.add_dependency 'activesupport'
 end
