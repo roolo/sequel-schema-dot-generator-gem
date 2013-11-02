@@ -39,6 +39,12 @@ Or install it yourself as:
 
 ## Changelog
 
+### 0.0.4
+- Module structure flattened
+- Dir structure flattened
+- active_support -> activesupport, smaller adjustments
+- Transition to Ruby 2.0 and .ruby-version files for gem development
+
 ### 0.0.3
 - Associations detection from model (`params[:schema_source_type] = :model`)
 - New homepage
